@@ -245,5 +245,25 @@ live-server 폴더명
 
 This project is [MIT](https://github.com/blackcoffee-study/moonbucks-menu/blob/main/LICENSE) licensed.
 
+---
+
 ### Start
 2022-01-30
+
+# 구현할 목록
+## TODO
+
+### 메뉴 추가
+* 메뉴의 이름을 입력 받고 엔터키 입력으로 추가
+  * 추가되는 메뉴의 아래 마크업은 ```<ul id="espresso-menu-list" class="mt-3 pl-0"></ul>``` 안에 삽입해야 한다.
+  * 총 메뉴 갯수를 count하여 상단에 노출
+* 메뉴가 추가되고 나면, input 값은 빈 값으로 초기화
+* 사용자 input 값이 빈 값이라면 메뉴를 추가하지 않음
+---
+### 메뉴 수정
+- 메뉴 수정 버튼 클릭 이벤트를 통해 메뉴 수정 모달창(prompt 인터페이스) 활성화
+  - 모달창에서 신규 메뉴명을 입력 받고, 확인 버튼을 누르면 메뉴 업데이트
+---
+### 메뉴 삭제
+* 메뉴 삭제 버튼 클릭 이벤트를 통해 메뉴 삭제 confirm 모달창(confirm 인터페이스) 활성화
+  * 모달창에서 확인 버튼을 누르면 메뉴 삭제
