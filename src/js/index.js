@@ -1,10 +1,6 @@
 const $ = (selector) => document.querySelector(selector);
 
 function App() {
-    $('#espresso-menu-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-    });
-
     const addMenuName = () => {
         if ($('#espresso-menu-name').value === "") {
             alert('메뉴이름을 입력해주세요.');
@@ -38,9 +34,26 @@ function App() {
         const menuCount = $('#espresso-menu-list').querySelectorAll('li').length;
         $('.menu-count').innerText = `총 ${menuCount}개`;
     }
-    $('#espresso-menu-submit-button').addEventListener('click', (e) => {
-        addMenuName();
+    const updateMenuName = (e) => {
+        const $menuName = e.target.closest('li').querySelector('.menu-name');
+        const updatedMenuName = prompt('수정할 메뉴명을 입력하세요.', $menuName.innerText);
+        if (updatedMenuName === "") {
+            alert('메뉴명을 입력해주세요.');
+            return
+        }
+        $menuName.innerText = updatedMenuName;
+    }
+    const removeMenuName = (e) => {
+        if (confirm('정말 삭제하시겠습니까?')) {
+            e.target.closest('li').remove();
+            updateMenuCounts();
+        }
+    }
+    $('#espresso-menu-form').addEventListener('submit', (e) => {
+        e.preventDefault();
     });
+    $('#espresso-menu-submit-button').addEventListener('click', addMenuName);
+
     $('#espresso-menu-name').addEventListener('keypress', (e) => {
         if (e.key !== 'Enter') return
         addMenuName();
@@ -48,20 +61,11 @@ function App() {
 
     $('#espresso-menu-list').addEventListener('click', (e) => {
         if (e.target.classList.contains('menu-edit-button')) {
-            const $menuName = e.target.closest('li').querySelector('.menu-name');
-            const updatedMenuName = prompt('수정할 메뉴명을 입력하세요.', $menuName.innerText);
-            if (updatedMenuName === "") {
-                alert('메뉴명을 입력해주세요.');
-                return
-            }
-            $menuName.innerText = updatedMenuName;
+            updateMenuName(e);
         }
 
         if (e.target.classList.contains('menu-remove-button')) {
-            if (confirm('정말 삭제하시겠습니까?')) {
-                e.target.closest('li').remove();
-                updateMenuCounts();
-            }
+            removeMenuName(e);
         }
     })
 }
