@@ -58,8 +58,10 @@ function App() {
         }
 
         if (e.target.classList.contains('menu-remove-button')) {
-            e.target.closest('li').remove();
-            updateMenuCounts();
+            if (confirm('정말 삭제하시겠습니까?')) {
+                e.target.closest('li').remove();
+                updateMenuCounts();
+            }
         }
     })
 }
