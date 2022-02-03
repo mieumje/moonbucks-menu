@@ -31,10 +31,12 @@ function App() {
                 </li>`;
         };
         $('#espresso-menu-list').insertAdjacentHTML('beforeend', menuItemTemplate(espressoMenuName));
-
+        updateMenuCounts();
+        $('#espresso-menu-name').value = '';
+    }
+    const updateMenuCounts = () => {
         const menuCount = $('#espresso-menu-list').querySelectorAll('li').length;
         $('.menu-count').innerText = `총 ${menuCount}개`;
-        $('#espresso-menu-name').value = '';
     }
     $('#espresso-menu-submit-button').addEventListener('click', (e) => {
         addMenuName();
@@ -57,6 +59,7 @@ function App() {
 
         if (e.target.classList.contains('menu-remove-button')) {
             e.target.closest('li').remove();
+            updateMenuCounts();
         }
     })
 }
