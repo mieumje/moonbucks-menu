@@ -55,6 +55,9 @@ function App() {
             $menuName.innerText = updatedMenuName;
         }
 
+        if (e.target.classList.contains('menu-remove-button')) {
+            e.target.closest('li').remove();
+        }
     })
 }
 
