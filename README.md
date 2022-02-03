@@ -259,6 +259,7 @@ This project is [MIT](https://github.com/blackcoffee-study/moonbucks-menu/blob/m
   * 총 메뉴 갯수를 count하여 상단에 노출
 * 메뉴가 추가되고 나면, input 값은 빈 값으로 초기화
 * 사용자 input 값이 빈 값이라면 메뉴를 추가하지 않음
+* 확인 버튼 클릭 시, 메뉴 추가
 ---
 ### 메뉴 수정
 - 메뉴 수정 버튼 클릭 이벤트를 통해 메뉴 수정 모달창(prompt 인터페이스) 활성화
