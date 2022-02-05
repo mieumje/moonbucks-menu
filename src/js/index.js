@@ -1,6 +1,15 @@
 import { menuMarkUpMessage } from "./markUpMessages.js";
 const $ = (selector) => document.querySelector(selector);
 
+const store = {
+    setLocalStorage(menu) {
+        localStorage.setItem("menu", JSON.stringify(menu));
+    },
+    getLocalStorage() {
+        localStorage.getItem("menu");
+    }
+}
+
 function App() {
     const addMenuName = () => {
         if ($('#espresso-menu-name').value === "") {
