@@ -251,7 +251,7 @@ This project is [MIT](https://github.com/blackcoffee-study/moonbucks-menu/blob/m
 2022-01-30
 
 # 구현할 목록
-## TODO
+## DOM 조작과 이벤트 핸들링으로 메뉴 관리하기
 
 ### 메뉴 추가
 * 메뉴의 이름을 입력 받고 엔터키 입력으로 추가
@@ -268,3 +268,27 @@ This project is [MIT](https://github.com/blackcoffee-study/moonbucks-menu/blob/m
 ### 메뉴 삭제
 * 메뉴 삭제 버튼 클릭 이벤트를 통해 메뉴 삭제 confirm 모달창(confirm 인터페이스) 활성화
   * 모달창에서 확인 버튼을 누르면 메뉴 삭제
+---
+## 상태 관리로 메뉴 관리하기
+
+### localStorage Read & Write
+- localStorage에 데이터 저장
+- localStorage에 있는 데이터 읽어오기
+---
+### 카테고리별 메뉴판 관리
+- 에스프레소 메뉴판 관리
+- 프라푸치노 메뉴판 관리
+- 블렌디드 메뉴판 관리
+- 티바나 메뉴판 관리
+- 디저트 메뉴판 관리
+---
+### 페이지 접근 시 최초 데이터 Read & Rendering
+- 페이지에 최초 접근 시 localStorage에 에스프레소 메뉴를 읽어오기
+- 에스프레소 메뉴를 페이지에 노출
+---
+### 품절 상태 관리
+- 품절 상태인 경우를 보여줄 수 있게, 품절 버튼을 추가
+  - sold-out class를 추가해 상태를 변경
+- 품절 버튼을 추가
+- 품절 버튼 클릭 시 localStorage에 상태값 전달
+- 클릭 이벤트에서 가장 가까운 li 태그를 찾아(closest()) class 속성 값에 sold-out을 추가
