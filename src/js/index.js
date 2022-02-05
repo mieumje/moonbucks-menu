@@ -1,4 +1,4 @@
-import { menuMarkUpMessage } from "./messages.js";
+import { menuMarkUpMessage } from "./markUpMessages.js";
 const $ = (selector) => document.querySelector(selector);
 
 function App() {
