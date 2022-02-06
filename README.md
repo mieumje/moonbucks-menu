@@ -273,6 +273,9 @@ This project is [MIT](https://github.com/blackcoffee-study/moonbucks-menu/blob/m
 
 ### localStorage Read & Write
 - localStorage에 데이터 저장
+  + 메뉴 추가 시
+  + 메뉴 수정 시
+  + 메뉴 삭제 시
 - localStorage에 있는 데이터 읽어오기
 ---
 ### 카테고리별 메뉴판 관리
