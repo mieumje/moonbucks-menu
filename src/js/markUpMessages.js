@@ -1,6 +1,6 @@
-export const menuMarkUpMessage = (espressoMenuName) => {
+export const menuMarkUpMessage = (espressoMenuName, idx) => {
     return `
-    <li class="menu-list-item d-flex items-center py-2">
+    <li data-menu-id="${idx}" class="menu-list-item d-flex items-center py-2">
         <span class="w-100 pl-2 menu-name">${espressoMenuName}</span>
         <button
             type="button"

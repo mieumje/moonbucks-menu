@@ -21,8 +21,8 @@ function App() {
         const espressoMenuName = $('#espresso-menu-name').value;
         this.menu.push({ name: espressoMenuName });
         store.setLocalStorage(this.menu);
-        const menuTemplate = this.menu.map((Item) => {
-            return menuMarkUpMessage(Item.name);
+        const menuTemplate = this.menu.map((Item, index) => {
+            return menuMarkUpMessage(Item.name, index);
         }).join("");
 
         $('#espresso-menu-list').innerHTML = menuTemplate;
@@ -34,12 +34,15 @@ function App() {
         $('.menu-count').innerText = `총 ${menuCount}개`;
     }
     const updateMenuName = (e) => {
+        const menuId = e.target.closest('li').dataset.menuId;
         const $menuName = e.target.closest('li').querySelector('.menu-name');
         const updatedMenuName = prompt('수정할 메뉴명을 입력하세요.', $menuName.innerText);
         if (updatedMenuName === "") {
             alert('메뉴명을 입력해주세요.');
             return
         }
+        this.menu[menuId].name = updatedMenuName;
+        store.setLocalStorage(this.menu);
         $menuName.innerText = updatedMenuName;
     }
     const removeMenuName = (e) => {
