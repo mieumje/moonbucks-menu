@@ -47,7 +47,7 @@ function App() {
         $('#menu-name').value = '';
     }
     const updateMenuCounts = () => {
-        const menuCount = $('#menu-list').querySelectorAll('li').length;
+        const menuCount = this.menu[this.currentCategory].length;
         $('.menu-count').innerText = `총 ${menuCount}개`;
     }
     const updateMenuName = (e) => {
