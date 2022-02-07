@@ -11,7 +11,14 @@ const store = {
 };
 
 function App() {
-    this.menu = [];
+    this.menu = {
+        espresso: [],
+        frappuccino: [],
+        blended: [],
+        teavana: [],
+        desert: [],
+    };
+    this.currentCategory = 'espresso';
     this.init = () => {
         if (store.getLocalStorage()) {
             this.menu = store.getLocalStorage();
@@ -20,7 +27,7 @@ function App() {
     }
 
     const render = () => {
-        const menuTemplate = this.menu.map((Item, index) => {
+        const menuTemplate = this.menu[this.currentCategory].map((Item, index) => {
             return menuMarkUpMessage(Item.name, index);
         }).join("");
 
@@ -34,7 +41,7 @@ function App() {
         }
 
         const espressoMenuName = $('#espresso-menu-name').value;
-        this.menu.push({ name: espressoMenuName });
+        this.menu[this.currentCategory].push({ name: espressoMenuName });
         store.setLocalStorage(this.menu);
         render();
         $('#espresso-menu-name').value = '';
@@ -51,14 +58,14 @@ function App() {
             alert('메뉴명을 입력해주세요.');
             return
         }
-        this.menu[menuId].name = updatedMenuName;
+        this.menu[this.currentCategory][menuId].name = updatedMenuName;
         store.setLocalStorage(this.menu);
         $menuName.innerText = updatedMenuName;
     }
     const removeMenuName = (e) => {
         if (confirm('정말 삭제하시겠습니까?')) {
             const menuId = e.target.closest('li').dataset.menuId;
-            this.menu.splice(menuId, 1);
+            this.menu[this.currentCategory].splice(menuId, 1);
             store.setLocalStorage(this.menu);
             e.target.closest('li').remove();
             updateMenuCounts();
@@ -82,7 +89,15 @@ function App() {
         if (e.target.classList.contains('menu-remove-button')) {
             removeMenuName(e);
         }
-    })
+    });
+    $('nav').addEventListener('click', (e) => {
+        const isCategoryName = e.target.classList.contains('cafe-category-name');
+        if (isCategoryName) {
+            const categoryName = e.target.dataset.categoryName;
+            console.log(categoryName);
+        }
+
+    });
 }
 
 const app = new App();
