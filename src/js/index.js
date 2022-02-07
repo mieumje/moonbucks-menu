@@ -28,7 +28,7 @@ function App() {
 
     const render = () => {
         const menuTemplate = this.menu[this.currentCategory].map((Item, index) => {
-            return menuMarkUpMessage(Item.name, index);
+            return menuMarkUpMessage(Item, index);
         }).join("");
 
         $('#menu-list').innerHTML = menuTemplate;
@@ -71,6 +71,12 @@ function App() {
             updateMenuCounts();
         }
     }
+    const soldOutMenu = (e) => {
+        const menuId = e.target.closest('li').dataset.menuId;
+        this.menu[this.currentCategory][menuId].soldOut = !this.menu[this.currentCategory][menuId].soldOut;
+        store.setLocalStorage(this.menu);
+        render();
+    }
     $('#menu-form').addEventListener('submit', (e) => {
         e.preventDefault();
     });
@@ -84,10 +90,16 @@ function App() {
     $('#menu-list').addEventListener('click', (e) => {
         if (e.target.classList.contains('menu-edit-button')) {
             updateMenuName(e);
+            return
         }
 
         if (e.target.classList.contains('menu-remove-button')) {
             removeMenuName(e);
+            return
+        }
+        if (e.target.classList.contains('menu-sold-out-button')) {
+            soldOutMenu(e);
+            return
         }
     });
     $('nav').addEventListener('click', (e) => {
