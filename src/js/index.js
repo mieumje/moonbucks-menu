@@ -1,6 +1,8 @@
 import { menuMarkUpMessage } from "./markUpMessages.js";
 import { $ } from "./utils/dom.js";
 import store from "./store/index.js";
+const BASE_URL = 'http://localhost:3000';
+
 function App() {
     this.menu = {
         espresso: [],
@@ -33,7 +35,16 @@ function App() {
         }
 
         const menuName = $('#menu-name').value;
-        this.menu[this.currentCategory].push({ name: menuName });
+        //this.menu[this.currentCategory].push({ name: menuName });
+        fetch(`${BASE_URL}/api/category/${this.currentCategory}/menu`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: menuName }),
+        }).then(response => {
+            return response.json()
+        }).then(data => {
+            console.log(data);
+        })
         store.setLocalStorage(this.menu);
         render();
         $('#menu-name').value = '';
