@@ -295,3 +295,20 @@ This project is [MIT](https://github.com/blackcoffee-study/moonbucks-menu/blob/m
 - 품절 버튼을 추가
 - 품절 버튼 클릭 시 localStorage에 상태값 전달
 - 클릭 이벤트에서 가장 가까운 li 태그를 찾아(closest()) class 속성 값에 sold-out을 추가
+---
+## 서버와의 통신을 통해 메뉴 관리하기
+### 서버 요청
+* 웹 서버 띄우기
+* 서버에 새로운 메뉴명을 추가할 수 있도록 요청
+* 서버에 카테고리 별 메뉴 리스트를 불러 올 수 있도록 요청
+* 서버에 메뉴가 수정 될 수 있도록 요청
+* 서버에 메뉴의 품절 상태를 토글(toggle) 될 수 있도록 요청
+* 서버에 메뉴가 삭제 될 수 있도록 요청
+---
+### 리팩터링
+* localStorage에 저장하는 로직 지우기
+* fetch 비동기 api를 사용하는 부분을 async await을 사용하여 구현
+---
+### 사용자 경험
+* API 통신이 실패하는 경우에 대해 사용자가 알 수 있게 alert으로 예외처리
+* 중복되는 메뉴는 추가할 수 없음
