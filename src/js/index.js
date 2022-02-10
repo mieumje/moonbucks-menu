@@ -12,13 +12,12 @@ function App() {
     };
     this.currentCategory = 'espresso';
     this.init = async () => {
-        this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(this.currentCategory);
-        console.log(this.menu[this.currentCategory])
         initEventListener();
         render();
     }
 
-    const render = () => {
+    const render = async () => {
+        this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(this.currentCategory);
         const menuTemplate = this.menu[this.currentCategory].map((Item, index) => {
             return menuMarkUpMessage(Item, index);
         }).join("");
@@ -35,7 +34,7 @@ function App() {
         const menuName = $('#menu-name').value;
         await MenuApi.createMenu(this.currentCategory, menuName);
 
-        this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(this.currentCategory);
+
         render();
         $('#menu-name').value = '';
 
@@ -53,7 +52,7 @@ function App() {
             return
         }
         await MenuApi.updateMenu(this.currentCategory, updatedMenuName, menuId);
-        this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(this.currentCategory);
+
 
         render();
     }
@@ -61,7 +60,7 @@ function App() {
         if (confirm('정말 삭제하시겠습니까?')) {
             const menuId = e.target.closest('li').dataset.menuId;
             await MenuApi.deleteMenu(this.currentCategory, menuId);
-            this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(this.currentCategory);
+
 
             render();
         }
@@ -69,7 +68,7 @@ function App() {
     const soldOutMenu = async (e) => {
         const menuId = e.target.closest('li').dataset.menuId;
         await MenuApi.toggleSoldOutMenu(this.currentCategory, menuId);
-        this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(this.currentCategory);
+
         render();
     }
 
@@ -104,7 +103,7 @@ function App() {
             if (isCategoryName) {
                 const categoryName = e.target.dataset.categoryName;
                 this.currentCategory = categoryName;
-                this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(this.currentCategory);
+
                 render();
                 $('#category-title').innerText = `${e.target.innerText} 메뉴 관리`
             }
