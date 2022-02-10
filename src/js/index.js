@@ -1,6 +1,6 @@
 import { menuMarkUpMessage } from "./markUpMessages.js";
 import { $ } from "./utils/dom.js";
-import store from "./store/index.js";
+
 const BASE_URL = 'http://localhost:3000';
 
 const MenuApi = {
@@ -35,8 +35,8 @@ const MenuApi = {
         const response = await fetch(`${BASE_URL}/api/category/${category}/menu/${menuId}`, {
             method: "DELETE",
         });
-
-    }
+        if (!response.ok) console.log("에러가 발생했습니다.");
+    },
 }
 
 function App() {
@@ -91,8 +91,7 @@ function App() {
         }
         await MenuApi.updateMenu(this.currentCategory, updatedMenuName, menuId);
         this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(this.currentCategory);
-        //this.menu[this.currentCategory][menuId].name = updatedMenuName;
-        //store.setLocalStorage(this.menu);
+
         render();
     }
     const removeMenuName = async (e) => {
@@ -100,8 +99,7 @@ function App() {
             const menuId = e.target.closest('li').dataset.menuId;
             await MenuApi.deleteMenu(this.currentCategory, menuId);
             this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(this.currentCategory);
-            // this.menu[this.currentCategory].splice(menuId, 1);
-            // store.setLocalStorage(this.menu);
+
             render();
         }
     }
