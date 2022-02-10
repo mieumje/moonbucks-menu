@@ -1,6 +1,6 @@
-export const menuMarkUpMessage = (Item, idx) => {
+export const menuMarkUpMessage = (Item) => {
     return `
-    <li data-menu-id="${idx}" class="menu-list-item d-flex items-center py-2">
+    <li data-menu-id="${Item.id}" class="menu-list-item d-flex items-center py-2">
         <span class="w-100 pl-2 menu-name ${Item.soldOut ? "sold-out" : ""} ">${Item.name}</span>
         <button
             type="button"
