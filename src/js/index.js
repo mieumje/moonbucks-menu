@@ -14,7 +14,7 @@ function App() {
     this.init = async () => {
         initEventListener();
         render();
-    }
+    };
 
     const render = async () => {
         this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(this.currentCategory);
@@ -24,7 +24,7 @@ function App() {
 
         $('#menu-list').innerHTML = menuTemplate;
         updateMenuCounts();
-    }
+    };
     const addMenuName = async () => {
         if ($('#menu-name').value === "") {
             alert('메뉴이름을 입력해주세요.');
@@ -38,11 +38,11 @@ function App() {
         render();
         $('#menu-name').value = '';
 
-    }
+    };
     const updateMenuCounts = () => {
         const menuCount = this.menu[this.currentCategory].length;
         $('.menu-count').innerText = `총 ${menuCount}개`;
-    }
+    };
     const updateMenuName = async (e) => {
         const menuId = e.target.closest('li').dataset.menuId;
         const $menuName = e.target.closest('li').querySelector('.menu-name');
@@ -55,7 +55,7 @@ function App() {
 
 
         render();
-    }
+    };
     const removeMenuName = async (e) => {
         if (confirm('정말 삭제하시겠습니까?')) {
             const menuId = e.target.closest('li').dataset.menuId;
@@ -64,14 +64,14 @@ function App() {
 
             render();
         }
-    }
+    };
     const soldOutMenu = async (e) => {
         const menuId = e.target.closest('li').dataset.menuId;
         await MenuApi.toggleSoldOutMenu(this.currentCategory, menuId);
 
         render();
-    }
-    const changeCategory = async (e) => {
+    };
+    const changeCategory = (e) => {
         const isCategoryName = e.target.classList.contains('cafe-category-name');
         if (isCategoryName) {
             const categoryName = e.target.dataset.categoryName;
@@ -80,7 +80,7 @@ function App() {
             render();
             $('#category-title').innerText = `${e.target.innerText} 메뉴 관리`
         }
-    }
+    };
 
     const initEventListener = () => {
         $('#menu-form').addEventListener('submit', (e) => {
