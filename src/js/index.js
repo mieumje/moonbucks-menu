@@ -24,6 +24,18 @@ const MenuApi = {
         });
         if (!response.ok) console.log("에러가 발생했습니다.");
         return response.json()
+    },
+    async toggleSoldOutMenu(category, menuId) {
+        const response = await fetch(`${BASE_URL}/api/category/${category}/menu/${menuId}/soldout`, {
+            method: "PUT",
+        });
+        if (!response.ok) console.log("에러가 발생했습니다.");
+    },
+    async deleteMenu(category, menuId) {
+        const response = await fetch(`${BASE_URL}/api/category/${category}/menu/${menuId}`, {
+            method: "DELETE",
+        });
+
     }
 }
 
@@ -83,18 +95,20 @@ function App() {
         //store.setLocalStorage(this.menu);
         render();
     }
-    const removeMenuName = (e) => {
+    const removeMenuName = async (e) => {
         if (confirm('정말 삭제하시겠습니까?')) {
             const menuId = e.target.closest('li').dataset.menuId;
-            this.menu[this.currentCategory].splice(menuId, 1);
-            store.setLocalStorage(this.menu);
+            await MenuApi.deleteMenu(this.currentCategory, menuId);
+            this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(this.currentCategory);
+            // this.menu[this.currentCategory].splice(menuId, 1);
+            // store.setLocalStorage(this.menu);
             render();
         }
     }
-    const soldOutMenu = (e) => {
+    const soldOutMenu = async (e) => {
         const menuId = e.target.closest('li').dataset.menuId;
-        this.menu[this.currentCategory][menuId].soldOut = !this.menu[this.currentCategory][menuId].soldOut;
-        store.setLocalStorage(this.menu);
+        await MenuApi.toggleSoldOutMenu(this.currentCategory, menuId);
+        this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(this.currentCategory);
         render();
     }
 
