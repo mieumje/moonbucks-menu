@@ -3,6 +3,13 @@ import { $ } from "./utils/dom.js";
 import store from "./store/index.js";
 const BASE_URL = 'http://localhost:3000';
 
+const MenuApi = {
+    async getAllMenuByCategory(category) {
+        const response = await fetch(`${BASE_URL}/api/category/${category}/menu`);
+        return response.json();
+    }
+}
+
 function App() {
     this.menu = {
         espresso: [],
@@ -12,10 +19,9 @@ function App() {
         desert: [],
     };
     this.currentCategory = 'espresso';
-    this.init = () => {
-        if (store.getLocalStorage()) {
-            this.menu = store.getLocalStorage();
-        }
+    this.init = async () => {
+        this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(this.currentCategory);
+        console.log(this.menu[this.currentCategory])
         initEventListener();
         render();
     }
@@ -46,14 +52,10 @@ function App() {
             console.log(data);
         });
 
-        await fetch(`${BASE_URL}/api/category/${this.currentCategory}/menu`)
-            .then(response => {
-                return response.json()
-            }).then(data => {
-                this.menu[this.currentCategory] = data;
-                render();
-                $('#menu-name').value = '';
-            });
+        this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(this.currentCategory);
+        render();
+        $('#menu-name').value = '';
+
     }
     const updateMenuCounts = () => {
         const menuCount = this.menu[this.currentCategory].length;
